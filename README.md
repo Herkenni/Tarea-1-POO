@@ -5,7 +5,7 @@ Tarea 1 de Programación Orientada a Objetos, 2024
   - Rol: 201830033-0
 - Nombre: Nicolás Figueroa
   - Rol: 201704118-8
-- Nombre: 
-  - Rol:
+- Nombre: Alonso Castillo Pinto
+  - Rol: 202004589-5
 - Nombre: 
   - Rol:
