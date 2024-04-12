@@ -13,6 +13,8 @@ public class Main {
         String nombre;
         Mascota mascota = new Mascota();
         Scanner leer = new Scanner(System.in);
+        //Se inician los parametros de mascota
+        mascota.Inicio();
         /*Lo siguiente se muestran todas las caracteristicas de la mascota*/
         System.out.println("Mascota Virtual");
         System.out.println("Atributos");
