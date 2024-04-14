@@ -1,10 +1,9 @@
 package Etapa1;
 import java.util.Scanner;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.swing.Timer;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         /*
         String nombre: Nombre de la mascota, todavia por arreglar
         Mascota mascota: Una clase Mascota llamada mascota que se usara durante el juego
@@ -26,5 +25,11 @@ public class Main {
         System.out.println("Felicidad: "+mascota.getFelicidad());
         System.out.print("Estado: ");
         mascota.getEstado();
+
+        //inicializado todos los aspectos/atributos y mostrados, se procede a que comience a pasar el tiempo
+        Timer timer= new Timer(1000, mascota);//interrupcion cada 1 segundo que activara el actionperformed
+        timer.start();//iniciamos el timer
+
+        
     }  
 }
