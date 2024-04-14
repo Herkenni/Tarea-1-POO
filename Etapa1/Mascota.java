@@ -151,6 +151,7 @@ public class Mascota implements ActionListener {
         else{ //solo va disminuyendo gradualmente la energia y la felicidad
           energia--;
           felicidad--;
+          salud--;
         }
       
       //condicional simple para pooner como limite que la energia y felicidad minimo pueden ser 0.
