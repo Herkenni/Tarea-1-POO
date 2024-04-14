@@ -1,9 +1,9 @@
 package Etapa1;
-
+import java.awt.event.*; ///libreria que contiene interfaz actionListener
 /*
   Mascota
  */
-public class Mascota {
+public class Mascota implements ActionListener {
 
     /*
     String nombre: Nombre de la mascota
@@ -103,50 +103,60 @@ public class Mascota {
 
     ///metodos
 
-    public void Estado(){ //pasamos como parametro un objeto de tipo Mascota
-        if (this.salud<=10) {
-            /*disminucion generica, ya que en realidad 
-            disminuye por cada incremento de tiempo de ejecucion*/
-            this.felicidad=this.felicidad-20;
+    public void Estado(){
+        if(felicidad>=60){
+            Estado=EnumEstado.FELIZ;
         }
 
-        else if (this.salud<=50 && this.edad>5 && this.edad<=10) {
-            
-            //misma analogia, los decrementos se tienen
-            // que hacer por tiempo de simulacion, esto es solo generico
-            this.energia=this.energia-20;
-            this.felicidad=this.felicidad-20;
-
+        else if(felicidad<=20){
+            Estado=EnumEstado.TRISTE;
         }
 
-        else if (this.salud<=50 && this.edad>10) {
-            //decremento igual que los anteriore(por tiempo de simulacion)
-            //estos numeros que se restan son solo para mostrar una representacion
-            this.energia=this.energia-20;
-            this.felicidad=this.felicidad-30;          
+        else if((salud<=20 && edad<=5) || (salud<=50 && edad>=5 && edad<=10)){
+            Estado=EnumEstado.HAMBRIENTO;
         }
 
+        else if(edad>5 && salud<=30 && energia<=30){
+            Estado=EnumEstado.CANSADO;
+        }
 
-
-        //hacer condicionales tenidos los valores finales
-        //de la energia, felicidad, salud, donde 
-        //cada if tendra su propio retorno que son los siguientes:
-        
-        /*return "(-_-) Meh.... ";
-
-        return "/(^_^)/ Weeeeeh!";
-
-        return "(._.) snif.... ";
-
-        return "(0o0) hambre hambre!";
-
-        return "(ôwô) grrrr....";
-
-        return "(=_=) zzzz.... ";
-
-        return "(x_x) fin del juego";
-
-        return "(-.-)";*/
+        else if((salud==0 || energia==0) || edad>=15){
+            Estado=EnumEstado.MUERTO;
+        }
     }
+
+
+
+  //debemos implementar actionperformed en nuestra clase y tambien en el main. 
+  // Cada vez que ocurre la interrupcion/evento se ejecuta el metodo actionPerformed que está
+  //Timer creado en main se le asocia el objeto que contiene el metodo actionperformed
+  
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        //condiciones si los atributos estan en cierto nivel y sus consecuencias 
+        if (salud<=10) {
+            felicidad=felicidad-20;
+            
+        }
+          
+        else if (salud<=50 && edad>5 && edad<=10) {
+            energia=energia-20;
+            felicidad=felicidad-20;
+        }
+
+        else if (salud<=50 && edad>10) {
+            energia=energia-20;
+            felicidad=felicidad-30;  
+        }
+
+      //condicional simple para pooner como limite que la energia y felicidad minimo pueden ser 0.
+        energia=(energia<0)?0:energia; 
+        felicidad=(felicidad<0)?0:felicidad;
+        edad++;//va pasando la edad de la mascota de acuerdo al tiempo de simulacion
+        
+   }
+
+
+  
 
 }
