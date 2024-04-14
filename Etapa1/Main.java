@@ -3,7 +3,7 @@ import java.util.Scanner;
 import java.swing.Timer;
 
 public class Main {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         /*
         String nombre: Nombre de la mascota, todavia por arreglar
         Mascota mascota: Una clase Mascota llamada mascota que se usara durante el juego
