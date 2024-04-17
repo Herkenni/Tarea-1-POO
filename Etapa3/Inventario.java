@@ -17,12 +17,21 @@ public class Inventario extends Item{
     return largo;
   }
 
+ public void setLargo(int Largo){
+  this.Largo=Largo;
+}
+
+
   //metodo para crear lista con todo el inventario
-  public void AgregarItem(Item item){//agrega item al inventario
-  }
+//agrega item al inventario public void
+//se usa una vez definido el inventario
+ AgregarItem(Item item){
+ 
+ }
 
 //metodo para obtener el largo que tendrá el inventario
   public void LargoInventario(Item item){
+
   }
   
 
