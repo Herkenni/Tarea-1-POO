@@ -11,9 +11,11 @@ public class Juguete extends Item{
         this.salud=0;
         this.felicidad=30;
     }
+    //La acción usando se encargara de emitir un mensaje y a su vez disminuir la cantidad del Item en 1
     @Override
     public void usando(){
         System.out.println("Usando Juguete "+this.nombre+"...");
+        this.cantidad=this.cantidad-1;
     }
     
 }
