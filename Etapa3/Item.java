@@ -1,4 +1,4 @@
-package Etapa2;
+package Etapa3;
 /*
 Es la clase padre de Medicina, Juguete y Comida
 */
