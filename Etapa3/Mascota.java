@@ -143,6 +143,16 @@ public class Mascota {
         }
     }
     
+    //Disminuye las estadisticas de la mascota y aumenta la edad de la misma una cantidad fija
+    public void Vejez(){
+        this.edad=this.edad+0.5;
+        this.salud=this.salud-5;
+        this.energia=this.energia-5;
+        this.felicidad=this.felicidad-5;
+    }
+    
+    
+    //Se encarga de revisar las estadisticas de la mascota y actuar en base a ellos
     public void Estado(){ //pasamos como parametro un objeto de tipo Mascota
         if (this.salud<=10) {
             /*disminucion generica, ya que en realidad 
@@ -166,27 +176,6 @@ public class Mascota {
             this.felicidad=this.felicidad-30;          
         }
 
-
-
-        //hacer condicionales tenidos los valores finales
-        //de la energia, felicidad, salud, donde 
-        //cada if tendra su propio retorno que son los siguientes:
-        
-        /*return "(-_-) Meh.... ";
-
-        return "/(^_^)/ Weeeeeh!";
-
-        return "(._.) snif.... ";
-
-        return "(0o0) hambre hambre!";
-
-        return "(ôwô) grrrr....";
-
-        return "(=_=) zzzz.... ";
-
-        return "(x_x) fin del juego";
-
-        return "(-.-)";*/
     }
 
 }
