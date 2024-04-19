@@ -14,12 +14,14 @@ public class Mascota {
     EnumEstado Estado: Es una enumeración con todos los estados de la Mascota
     */
     protected String nombre;
-    protected int edad, salud, energia, felicidad;
+    protected int salud, energia, felicidad;
     protected EnumEstado Estado;
+    protected double tiempoSimulacion,edad; //se coloca en las mismas unidades que el tiempo ya que eso piden en el enunciado
 
     //metodos constructores
 
     public Mascota(){ ///constructor para "setear" una mascota
+ 
     }
     //Iniciar una mascota con las estadisticas principales que nos declaran
     public void Inicio(){ //constructor para crear una mascota parametrizada
@@ -29,6 +31,7 @@ public class Mascota {
         this.energia=50;
         this.felicidad=50;
         this.Estado=EnumEstado.NEUTRO;
+        this.tiempoSimulacion=0;
     }
 
     ///metodos setters
@@ -37,7 +40,7 @@ public class Mascota {
         this.nombre = nombre;
     }
 
-    public void setEdad(int edad) {
+    public void setEdad(double edad) {
         this.edad = edad;
     }
 
@@ -55,7 +58,7 @@ public class Mascota {
 
     //metodos getters
 
-    public int getEdad() {
+    public double getEdad() {
         return this.edad;
     }
 
@@ -74,6 +77,11 @@ public class Mascota {
     public int getSalud() {
         return this.salud;
     }
+
+    public double getTiempo(){ //tiempo de simulacion 
+        return this.tiempoSimulacion;
+    }
+
     //Dependiento del valor de Estado, se obtiene un valor
     public void getEstado(){
         switch(this.Estado){
@@ -97,6 +105,7 @@ public class Mascota {
                 break;
             case MUERTO:
                 System.out.println("(x_x) fin del juego");
+                System.exit(0); ///IMPORTANTE: se cierra el programa cuando la mascota muere
                 break;      
         }
     }
@@ -106,6 +115,7 @@ public class Mascota {
     public void Dormir(){
         this.energia=100;
         this.salud=this.salud+15;
+        salud=(salud>100)?100:salud; //limite de valor de salud, ya que sin esto se iba al infinito
         System.out.println(this.nombre+" ha dormido como un tronco");
     }
     
@@ -151,31 +161,36 @@ public class Mascota {
         this.felicidad=this.felicidad-5;
     }
     
+    //se utiliza cada vez que se interactua con un item,
+    //ya que segun el enunciado solo con ello pasa el tiempo
+    public void aumentarTiempo(){
+        this.tiempoSimulacion=this.tiempoSimulacion+0.5;
+      }
     
     //Se encarga de revisar las estadisticas de la mascota y actuar en base a ellos
-    public void Estado(){ //pasamos como parametro un objeto de tipo Mascota
-        if (this.salud<=10) {
-            /*disminucion generica, ya que en realidad 
-            disminuye por cada incremento de tiempo de ejecucion*/
-            this.felicidad=this.felicidad-20;
-        }
-
-        else if (this.salud<=50 && this.edad>5 && this.edad<=10) {
+    //se debe aplicar despues de ejecutar la funcion aumentarTiempo()
+    public void Estado() {
+        //condiciones si los atributos estan en cierto nivel y sus consecuencias 
+        if (salud<=10) {
+            felicidad=felicidad-20*(int)this.tiempoSimulacion;
             
-            //misma analogia, los decrementos se tienen
-            // que hacer por tiempo de simulacion, esto es solo generico
-            this.energia=this.energia-20;
-            this.felicidad=this.felicidad-20;
-
+        }
+          
+        else if (salud<=50 && edad>5 && edad<=10) {
+            energia=energia-20*(int)this.tiempoSimulacion;
+            felicidad=felicidad-20*(int)this.tiempoSimulacion;
         }
 
-        else if (this.salud<=50 && this.edad>10) {
-            //decremento igual que los anteriore(por tiempo de simulacion)
-            //estos numeros que se restan son solo para mostrar una representacion
-            this.energia=this.energia-20;
-            this.felicidad=this.felicidad-30;          
+        else if (salud<=50 && edad>10) {
+            energia=energia-20*(int)this.tiempoSimulacion;
+            felicidad=felicidad-30*(int)this.tiempoSimulacion;  
         }
+      
+      //condicional simple para pooner como limite que la energia, felicidad y salud minimo pueden ser 0.
+        energia=(energia<0)?0:energia; 
+        felicidad=(felicidad<0)?0:felicidad; 
+        salud=(salud<0)?0:salud;
+   }
 
-    }
 
 }
