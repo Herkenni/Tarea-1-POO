@@ -14,12 +14,14 @@ public class Mascota {
     EnumEstado Estado: Es una enumeración con todos los estados de la Mascota
     */
     protected String nombre;
-    protected int edad, salud, energia, felicidad;
+    protected int salud, energia, felicidad;
     protected EnumEstado Estado;
+    protected double edad; //se coloca en las mismas unidades que el tiempo ya que eso piden en el enunciado
 
     //metodos constructores
 
     public Mascota(){ ///constructor para "setear" una mascota
+ 
     }
     //Iniciar una mascota con las estadisticas principales que nos declaran
     public void Inicio(){ //constructor para crear una mascota parametrizada
@@ -29,6 +31,7 @@ public class Mascota {
         this.energia=50;
         this.felicidad=50;
         this.Estado=EnumEstado.NEUTRO;
+        this.tiempoSimulacion=0;
     }
 
     ///metodos setters
@@ -37,7 +40,7 @@ public class Mascota {
         this.nombre = nombre;
     }
 
-    public void setEdad(int edad) {
+    public void setEdad(double edad) {
         this.edad = edad;
     }
 
@@ -55,7 +58,7 @@ public class Mascota {
 
     //metodos getters
 
-    public int getEdad() {
+    public double getEdad() {
         return this.edad;
     }
 
@@ -74,6 +77,8 @@ public class Mascota {
     public int getSalud() {
         return this.salud;
     }
+
+
     //Dependiento del valor de Estado, se obtiene un valor
     public void getEstado(){
         switch(this.Estado){
@@ -97,6 +102,7 @@ public class Mascota {
                 break;
             case MUERTO:
                 System.out.println("(x_x) fin del juego");
+                System.exit(0); ///IMPORTANTE: se cierra el programa cuando la mascota muere
                 break;      
         }
     }
@@ -106,24 +112,11 @@ public class Mascota {
     public void Dormir(){
         this.energia=100;
         this.salud=this.salud+15;
+        salud=(salud>100)?100:salud; //limite de valor de salud, ya que sin esto se iba al infinito
         System.out.println(this.nombre+" ha dormido como un tronco");
     }
     
-    //Aumenta las estadisticas de la mascota segun el Item elegido, y si supera 100 lo deja en 100
-    public void Aumentar(Item item){
-        this.energia= this.energia + item.getenergia();
-        if(this.energia>100){
-            this.energia = 100;
-        }
-        this.felicidad= this.felicidad + item.getfelicidad();
-        if(this.felicidad>100){
-            this.felicidad = 100;
-        }
-        this.salud= this.salud + item.getsalud();
-        if(this.salud>100){
-            this.salud = 100;
-        }
-    }
+
     //Establece el valor de la variable Estado dependiendo de las estadisticas de la mascota
     public void Humor(){
         if(this.salud==0 || this.energia==0 || this.edad >= 15){
@@ -143,50 +136,7 @@ public class Mascota {
         }
     }
     
-    public void Estado(){ //pasamos como parametro un objeto de tipo Mascota
-        if (this.salud<=10) {
-            /*disminucion generica, ya que en realidad 
-            disminuye por cada incremento de tiempo de ejecucion*/
-            this.felicidad=this.felicidad-20;
-        }
+ 
 
-        else if (this.salud<=50 && this.edad>5 && this.edad<=10) {
-            
-            //misma analogia, los decrementos se tienen
-            // que hacer por tiempo de simulacion, esto es solo generico
-            this.energia=this.energia-20;
-            this.felicidad=this.felicidad-20;
-
-        }
-
-        else if (this.salud<=50 && this.edad>10) {
-            //decremento igual que los anteriore(por tiempo de simulacion)
-            //estos numeros que se restan son solo para mostrar una representacion
-            this.energia=this.energia-20;
-            this.felicidad=this.felicidad-30;          
-        }
-
-
-
-        //hacer condicionales tenidos los valores finales
-        //de la energia, felicidad, salud, donde 
-        //cada if tendra su propio retorno que son los siguientes:
-        
-        /*return "(-_-) Meh.... ";
-
-        return "/(^_^)/ Weeeeeh!";
-
-        return "(._.) snif.... ";
-
-        return "(0o0) hambre hambre!";
-
-        return "(ôwô) grrrr....";
-
-        return "(=_=) zzzz.... ";
-
-        return "(x_x) fin del juego";
-
-        return "(-.-)";*/
-    }
 
 }
