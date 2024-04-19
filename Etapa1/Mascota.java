@@ -16,7 +16,7 @@ public class Mascota {
     protected String nombre;
     protected int salud, energia, felicidad;
     protected EnumEstado Estado;
-    protected double tiempoSimulacion,edad; //se coloca en las mismas unidades que el tiempo ya que eso piden en el enunciado
+    protected double edad; //se coloca en las mismas unidades que el tiempo ya que eso piden en el enunciado
 
     //metodos constructores
 
@@ -78,9 +78,6 @@ public class Mascota {
         return this.salud;
     }
 
-    public double getTiempo(){ //tiempo de simulacion 
-        return this.tiempoSimulacion;
-    }
 
     //Dependiento del valor de Estado, se obtiene un valor
     public void getEstado(){
@@ -119,21 +116,7 @@ public class Mascota {
         System.out.println(this.nombre+" ha dormido como un tronco");
     }
     
-    //Aumenta las estadisticas de la mascota segun el Item elegido, y si supera 100 lo deja en 100
-    public void Aumentar(Item item){
-        this.energia= this.energia + item.getenergia();
-        if(this.energia>100){
-            this.energia = 100;
-        }
-        this.felicidad= this.felicidad + item.getfelicidad();
-        if(this.felicidad>100){
-            this.felicidad = 100;
-        }
-        this.salud= this.salud + item.getsalud();
-        if(this.salud>100){
-            this.salud = 100;
-        }
-    }
+
     //Establece el valor de la variable Estado dependiendo de las estadisticas de la mascota
     public void Humor(){
         if(this.salud==0 || this.energia==0 || this.edad >= 15){
@@ -153,44 +136,7 @@ public class Mascota {
         }
     }
     
-    //Disminuye las estadisticas de la mascota y aumenta la edad de la misma una cantidad fija
-    public void Vejez(){
-        this.edad=this.edad+0.5;
-        this.salud=this.salud-5;
-        this.energia=this.energia-5;
-        this.felicidad=this.felicidad-5;
-    }
-    
-    //se utiliza cada vez que se interactua con un item,
-    //ya que segun el enunciado solo con ello pasa el tiempo
-    public void aumentarTiempo(){
-        this.tiempoSimulacion=this.tiempoSimulacion+0.5;
-      }
-    
-    //Se encarga de revisar las estadisticas de la mascota y actuar en base a ellos
-    //se debe aplicar despues de ejecutar la funcion aumentarTiempo()
-    public void Estado() {
-        //condiciones si los atributos estan en cierto nivel y sus consecuencias 
-        if (salud<=10) {
-            felicidad=felicidad-20*(int)this.tiempoSimulacion;
-            
-        }
-          
-        else if (salud<=50 && edad>5 && edad<=10) {
-            energia=energia-20*(int)this.tiempoSimulacion;
-            felicidad=felicidad-20*(int)this.tiempoSimulacion;
-        }
-
-        else if (salud<=50 && edad>10) {
-            energia=energia-20*(int)this.tiempoSimulacion;
-            felicidad=felicidad-30*(int)this.tiempoSimulacion;  
-        }
-      
-      //condicional simple para pooner como limite que la energia, felicidad y salud minimo pueden ser 0.
-        energia=(energia<0)?0:energia; 
-        felicidad=(felicidad<0)?0:felicidad; 
-        salud=(salud<0)?0:salud;
-   }
+ 
 
 
 }
