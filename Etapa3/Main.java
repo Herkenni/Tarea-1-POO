@@ -1,8 +1,6 @@
 package Etapa3;
 
 import java.util.Scanner;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.ArrayList;
 
 public class Main {
@@ -18,7 +16,6 @@ public class Main {
         String nombre;
         Mascota mascota = new Mascota();
         Scanner leer = new Scanner(System.in);
-        double tiempo=0.0;
         Item objeto;
         int desicion=0;
         
@@ -31,25 +28,25 @@ public class Main {
         Item Pelota = new Juguete();
         Pelota.setnombre("Pelota");
         Pelota.setid(1);
-        Pelota.setcantidad(4);
+        Pelota.setcantidad(10);
         Pelota.inicio();
         
         Item Queso = new Comida();
         Queso.setnombre("Queso");
         Queso.setid(2);
-        Queso.setcantidad(5);
+        Queso.setcantidad(10);
         Queso.inicio();
         
         Item Pan = new Comida();
         Pan.setnombre("Pan");
         Pan.setid(3);
-        Pan.setcantidad(3);
+        Pan.setcantidad(10);
         Pan.inicio();
         
         Item Jarabe = new Medicina();
         Jarabe.setnombre("Jarabe");
         Jarabe.setid(4);
-        Jarabe.setcantidad(4);
+        Jarabe.setcantidad(10);
         Jarabe.inicio();
         
         //Se agregan a la clase inventario los objetos que seran despues agregados a la ArrayList que tiene la clase
@@ -61,13 +58,11 @@ public class Main {
         
         //Mientras desicion no tenga un valor igual a 9 no se detendra el while
         while(desicion!=9){
-            //Se aumenta el tiempo en 0.5 por cada desicion a tomar
-            tiempo=tiempo+0.5;
+
             //Se disminuyen las estadisticas de la mascota y aumenta su edad, para despues ver el Estado de la mascota con las estadisticas que quedo
-            mascota.Vejez();
             mascota.Estado();
             /*Lo siguiente se muestran todas las caracteristicas de la mascota*/
-            System.out.println("Tiempo simulado "+tiempo);
+            System.out.println("Tiempo simulado "+mascota.getTiempo());
             System.out.println("Atributos");
             System.out.println("------------");
             System.out.println("Nombre: "+mascota.getNombre());
@@ -78,6 +73,7 @@ public class Main {
             System.out.print("Estado: ");
             mascota.Humor();
             mascota.getEstado();
+            
             
             //Las acciones que puede realizar el usuario
             System.out.println("Acciones");
@@ -98,8 +94,13 @@ public class Main {
             for(int j = 0; j<inventario.TamañoLista();j++){
                 objeto=inventario.ObtenerItem(j);
                 if(objeto.getid()==desicion){
+                    mascota.Vejez(); 
                     objeto.usando();
                     mascota.Aumentar(objeto);
+                    mascota.aumentarTiempo();
+                    System.out.println("pasa el tiempo...");
+                    
+
                     //Si la cantidad es igual a 0, se elimina el objeto del inventario
                     if(objeto.getcantidad()== 0){
                         inventario.EliminarItem(j);
@@ -110,10 +111,16 @@ public class Main {
                     }
                     //Si la primera consulta no es igual, se consultara por si acaso que si la desicion es dormir
                 }else if(desicion==0){
+                    mascota.Vejez();
                     mascota.Dormir();
+                    mascota.aumentarTiempo();
+                    System.out.println("pasa el tiempo...");
+                    break;
                 }
             }
+            
             
         }
     }  
 }
+
