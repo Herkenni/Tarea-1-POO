@@ -7,5 +7,5 @@ Tarea 1 de Programación Orientada a Objetos, 2024
   - Rol: 201704118-8
 - Nombre: Alonso Castillo Pinto
   - Rol: 202004589-5
-- Nombre: 
-  - Rol:
+- Nombre: Juan Carlos Gutiérrez
+  - Rol: 201930041-5
