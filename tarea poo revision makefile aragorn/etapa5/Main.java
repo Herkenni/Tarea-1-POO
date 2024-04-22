@@ -3,6 +3,9 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 
 public class Main {
@@ -127,9 +130,19 @@ public class Main {
         inventario.AgregarItem(Pan);
         inventario.AgregarItem(Jarabe);*/
         System.out.println("Mascota Virtual");
-        
+        String aarchivoCSV = "datos_mascota.csv";
+        File file = new File(aarchivoCSV);
+        try (PrintWriter writer = new PrintWriter(new FileWriter(aarchivoCSV))) {
+            writer.println(mascota.getNombre());
         //Mientras desicion no tenga un valor igual a 9 no se detendra el while
-        while(desicion!=99){//se asume que no abra mas de 99 items distintos en el inventario 
+        while(desicion!=99){//se asume que no abra mas de 99 items distintos en el inventario
+            mascota.Humor();
+            mascota.getEstado();
+            String datos = mascota.getTiempo()+";"+mascota.getEdad()+";"+mascota.getSalud()+";"+mascota.getEnergia()+";"+mascota.getFelicidad();
+            writer.println(datos);
+
+            
+
 
             //Se disminuyen las estadisticas de la mascota y aumenta su edad, para despues ver el Estado de la mascota con las estadisticas que quedo
             mascota.Estado();
@@ -163,7 +176,7 @@ public class Main {
             }
             
             //Se espera la respuesta del usuario para ser almacenado en la variable desicion
-            System.out.print("Seleccione un elemento del inventario: ");
+            System.out.print("Se un elemento del inventario: ");
             
             desicion = leer.nextInt();
             
@@ -211,33 +224,36 @@ public class Main {
 
             // Procesar la acción adicional seleccionada por el usuario
             //hice el 
-            switch (desicion) {
-                case 10:
-                    // Dormir por un cierto tiempo
-                    System.out.print("Ingrese la cantidad de horas que desea dormir: ");
-                    double horasDormir = leer.nextDouble();
-                    mascota.Dormir(horasDormir);
-                    mascota.aumentarTiempo();
-                    mascota.Vejez();
-                    System.out.println("La mascota ha dormido por " + horasDormir + " horas.");
-                    break;
-                case 11:
-                    // Continuar la simulación sin realizar ninguna acción adicional
-                    System.out.println("Continuando la simulación sin realizar ninguna acción adicional.");
-                    mascota.aumentarTiempo();
-                    mascota.Vejez();
-                    break;
-                case 12:
-                    // Terminar la simulación
-                    System.out.println("Terminando la simulación...");
-                    desicion = 99; // Esto hará que el bucle while termine en la siguiente iteración
-                    break;
-                default:
-                    System.out.println("Opción no válida.");
-            }
+                switch (desicion) {
+                    case 10:
+                        // Dormir por un cierto tiempo
+                        System.out.print("Ingrese la cantidad de horas que desea dormir: ");
+                        double horasDormir = leer.nextDouble();
+                        mascota.Dormir(horasDormir);
+                        mascota.Vejez();
+                        mascota.aumentarTiempo();
+                        System.out.println("La mascota ha dormido por " + horasDormir + " horas.");
+                        break;
+                    case 11:
+                        // Continuar la simulación sin realizar ninguna acción adicional
+                        System.out.println("Continuando la simulación sin realizar ninguna acción adicional.");
+                        mascota.aumentarTiempo();
+                        mascota.Vejez();
+                        break;
+                    case 12:
+                        // Terminar la simulación
+                        System.out.println("Terminando la simulación...");
+                        desicion = 99; // Esto hará que el bucle while termine en la siguiente iteración
+                        break;
+                    default:
+                        System.out.println("Opción no válida.");
+                }
 
 
             
+            }
+        } catch (IOException e) {
+            System.err.println("Error al escribir en el archivo CSV: " + e.getMessage());
         }
     }  
 }
